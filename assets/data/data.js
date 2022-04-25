@@ -43,13 +43,16 @@ export const dataAvatar = [
 
 export const dataFeeds = [
     {
+        id: 1,
         title: "Lorem Ipsum is simply dummy text",
         name: "Sahara",
         image: require('../../assets/images/image1.jpeg'),
         content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
         time: "1 minute"
-    },
+    }
+    ,
     {
+        id: 2,
         title: "Lorem Ipsum is simply dummy text",
         name: "Sophia",
         image: require('../../assets/images/image2.jpeg'),
@@ -58,6 +61,7 @@ export const dataFeeds = [
     
     },
     {
+        id: 3,
         title: "Lorem Ipsum is simply dummy text",
         name: "Hana",
         image: require('../../assets/images/image3.jpeg'),
@@ -66,6 +70,7 @@ export const dataFeeds = [
     
     },
     {
+        id: 4,
         title: "Lorem Ipsum is simply dummy text",
         name: "Naul",
         image: require('../../assets/images/image4.jpeg'),
@@ -73,6 +78,7 @@ export const dataFeeds = [
         time: "10 minutes"
     },
     {
+        id: 5,
         title: "Lorem Ipsum is simply dummy text",
         name: "Kimihana",
         image: require('../../assets/images/image5.jpeg'),

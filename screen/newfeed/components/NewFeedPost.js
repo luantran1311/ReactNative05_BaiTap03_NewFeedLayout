@@ -1,4 +1,11 @@
-import {Text, View, ScrollView, TouchableOpacity, Image} from 'react-native';
+import {
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+  FlatList,
+} from 'react-native';
 import React, {Component} from 'react';
 import {postStyles} from '../styles/NewFeedPostStyles';
 import {dataFeeds} from '../../../assets/data/data';
@@ -6,6 +13,44 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faEllipsis} from '@fortawesome/free-solid-svg-icons';
 
 export default class NewFeedPost extends Component {
+
+  state = {
+    likeCount: [
+      {
+        id: 1,
+        count: 0
+      },
+      {
+        id: 2,
+        count: 0
+      },
+      {
+        id: 3,
+        count: 0
+      },
+      {
+        id: 4,
+        count: 0
+      },
+      {
+        id: 5,
+        count: 0
+      }
+    ]
+  }
+
+  performLike = (postId) => {
+    let currentLikeCount = this.state.likeCount;
+
+    let updatedLikeCountIndex = currentLikeCount.findIndex(el => el.id === postId);
+
+    currentLikeCount[updatedLikeCountIndex].count = currentLikeCount[updatedLikeCountIndex].count + 1;
+    console.log(currentLikeCount);
+    this.setState({
+      likeCount: currentLikeCount
+    })
+  }
+
   renderPostList = dataList => {
     return dataList.map((data, index) => (
       <View style={postStyles.post_container} key={index}>
@@ -14,6 +59,21 @@ export default class NewFeedPost extends Component {
         {this.renderPostFooter()}
       </View>
     ));
+  };
+
+  renderPostListByFlatList = (feed) => {
+    return (
+      <View style={postStyles.post_container} index={feed.index}>
+        {this.renderPostHeader({
+          image: feed.item.image,
+          name: feed.item.name, 
+          title: feed.item.title, 
+          time: feed.item.time
+        })}
+        {this.renderPostBody(feed.item.content)}
+        {this.renderPostFooter(feed.item.id)}
+      </View>
+    );
   };
 
   renderPostHeader = headerData => {
@@ -43,15 +103,15 @@ export default class NewFeedPost extends Component {
     return <Text style={postStyles.post__body}>{bodyData}</Text>;
   };
 
-  renderPostFooter = () => {
+  renderPostFooter = (postId) => {
     return (
       <View style={postStyles.post__footer_container}>
-        <TouchableOpacity style={postStyles.post__footer_button}>
+        <TouchableOpacity style={postStyles.post__footer_button} onPress={() => this.performLike(postId)}>
           <Image
             style={postStyles.image_btn}
             source={require('../../../assets/images/heart.png')}
           />
-          <Text style={postStyles.reaction_count}>2</Text>
+          <Text style={postStyles.reaction_count}>{this.state.likeCount[postId-1].count}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={postStyles.post__footer_button}>
           <Image
@@ -67,7 +127,11 @@ export default class NewFeedPost extends Component {
   render() {
     return (
       <View style={{flex: 1}}>
-        <ScrollView>{this.renderPostList(dataFeeds)}</ScrollView>
+        {/* <ScrollView>{this.renderPostList(dataFeeds)}</ScrollView> */}
+        <FlatList
+          data={dataFeeds}
+          renderItem={this.renderPostListByFlatList}
+        />
       </View>
     );
   }
